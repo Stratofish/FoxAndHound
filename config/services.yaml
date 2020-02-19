@@ -36,3 +36,11 @@ services:
         public: true
         tags:
             - { name: 'prooph_service_bus.tab_command_bus.route_target', message_detection: true }
+
+    pub.tab_projection.tab_finder:
+        class: Webbaard\Pub\Infra\Tab\Projection\Tab\TabFinder
+        arguments: ['@doctrine.dbal.default_connection']
+
+    Webbaard\Pub\Infra\Tab\Projection\Tab\TabProjection: ~
+    Webbaard\Pub\Infra\Tab\Projection\Tab\TabReadmodel:
+        arguments: ['@doctrine.dbal.default_connection']

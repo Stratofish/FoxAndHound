@@ -4,6 +4,7 @@ namespace Webbaard\Pub\Domain\Tab\Event;
 
 use Prooph\EventSourcing\AggregateChanged;
 use Webbaard\Pub\Domain\Tab\ValueObject\CustomerName;
+use Webbaard\Pub\Domain\Tab\ValueObject\OpenedOn;
 use Webbaard\Pub\Domain\Tab\ValueObject\TabId;
 
 class TabWasOpened extends AggregateChanged
@@ -28,5 +29,10 @@ class TabWasOpened extends AggregateChanged
 	public function customerName(): CustomerName
 	{
 		return CustomerName::fromString($this->payload['customerName']);
+	}
+
+	public function openedOn(): OpenedOn
+	{
+		return OpenedOn::fromDateTime($this->createdAt);
 	}
 }

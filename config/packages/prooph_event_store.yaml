@@ -2,8 +2,19 @@ prooph_event_store:
     stores:
         tab_store:
             event_store: Prooph\EventStore\Pdo\MySqlEventStore
-
-
+            repositories:
+                tab_collection:
+                    repository_class: Webbaard\Pub\Infra\Tab\Repository\TabRepository
+                    aggregate_type: Webbaard\Pub\Domain\Tab\Tab
+                    aggregate_translator: prooph_event_sourcing.aggregate_translator
+    projection_managers:
+        tab_projection_manager:
+            event_store: Prooph\EventStore\Pdo\MySqlEventStore # event store
+            connection: 'doctrine.pdo.connection'
+            projections:
+                tab_projection:
+                    read_model: Webbaard\Pub\Infra\Tab\Projection\Tab\TabReadModel
+                    projection: Webbaard\Pub\Infra\Tab\Projection\Tab\TabProjection
 
 services:
     _defaults:
