@@ -1,8 +1,10 @@
-version: "3.6"
+version: "3.2"
 services:
     mysql:
         image: mysql:8.0
         restart: on-failure
+        ports:
+            - "3306:3306"
         environment:
             MYSQL_ROOT_PASSWORD: pub
             MYSQL_DATABASE: pub
@@ -25,7 +27,7 @@ services:
         working_dir: /usr/src/app
 
     encore:
-        image: node:10-alpine
+        image: node:11-alpine
         volumes:
             - .:/app
         ports:
