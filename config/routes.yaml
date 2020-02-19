@@ -20,6 +20,12 @@ command::open-tab:
     _controller: Webbaard\Pub\Application\Controller\ApiCommandController::postAction
     command_name: 'Webbaard\Pub\Domain\Tab\Command\OpenTab'
 
+command::pay-tab:
+  path: /api/commands/pay-tab
+  defaults:
+    _controller: Webbaard\Pub\Application\Controller\ApiCommandController::postAction
+    command_name: 'Webbaard\Pub\Domain\Tab\Command\PayTab'
+
 data::tab:
   path: /tab/{id}.json
   defaults: { _controller: Webbaard\Pub\Application\Controller\TabController::detailsAction }

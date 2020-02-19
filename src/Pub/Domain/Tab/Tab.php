@@ -1,15 +1,14 @@
 <?php
 
-
 namespace Webbaard\Pub\Domain\Tab;
 
-
-use PhpParser\Node\Expr\Instanceof_;
 use Prooph\EventSourcing\AggregateChanged;
 use Prooph\EventSourcing\AggregateRoot;
 use Webbaard\Pub\Domain\Tab\Event\TabWasOpened;
+use Webbaard\Pub\Domain\Tab\Event\TabWasPaid;
 use Webbaard\Pub\Domain\Tab\ValueObject\CustomerName;
 use Webbaard\Pub\Domain\Tab\ValueObject\OpenedOn;
+use Webbaard\Pub\Domain\Tab\ValueObject\PaidOn;
 use Webbaard\Pub\Domain\Tab\ValueObject\TabId;
 
 final class Tab extends AggregateRoot
@@ -41,6 +40,17 @@ final class Tab extends AggregateRoot
 		$this->openedOn = $event->openedOn();
 	}
 
+	public function SetPaid()
+	{
+		$this->recordThat(TabWasPaid::forTab(
+			$this->tabId,
+			PaidOn::now()));
+	}
+
+	public function whenTabWasPaid(TabWasPaid $event): void
+	{
+	}
+
 	/**
 	 * @inheritDoc
 	 */
@@ -51,6 +61,11 @@ final class Tab extends AggregateRoot
 			case $event instanceof TabWasOpened:
 			{
 				$this->whenTabWasOpened($event);
+				break;
+			}
+			case $event instanceof TabWasPaid:
+			{
+				$this->whenTabWasPaid($event);
 				break;
 			}
 		}
