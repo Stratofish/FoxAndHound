@@ -18,7 +18,7 @@ final class Tab extends AggregateRoot
 	private TabId $tabId;
 	private CustomerName $customerName;
 	private OpenedOn $openedOn;
-	private $orders;
+	private $orders = [];
 
 	public static function forCustomer(CustomerName $customerName): self
 	{
